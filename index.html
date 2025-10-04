@@ -2,91 +2,160 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacktoberfest - Developer Profile Card Showcase</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hacktoberfest 2025 - Developer Profile Showcase</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
 
-    <link rel="stylesheet" href="css/style.css">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <div class="background-aurora"></div>
+  <!-- Aurora Background -->
+  <div class="background-aurora" aria-hidden="true"></div>
 
-    <div class="container">
-        <nav class="navbar">
-            <h2 class="logo">Profile Showcase</h2>
-            <div class="nav-links">
-                <a href="https://github.com/dsawithaditi/Hacktoberfest2025" target="_blank" class="nav-link">
-                    <i class="ri-github-fill"></i> GitHub Repo
-                </a>
-                <a href="https://github.com/dsawithaditi/Hacktoberfest2025#how-to-contribute" target="_blank"
-                    class="nav-cta">
-                    Contribute <i class="ri-arrow-right-line"></i>
-                </a>
-            </div>
-        </nav>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <h1 class="logo">Profile Showcase</h1>
+      <div class="nav-links">
+        <a
+          href="https://github.com/dsawithaditi/Hacktoberfest2025"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link"
+        >
+          <i class="ri-github-fill"></i> GitHub Repo
+        </a>
+        <a
+          href="https://github.com/dsawithaditi/Hacktoberfest2025#how-to-contribute"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-cta"
+        >
+          Contribute <i class="ri-arrow-right-line"></i>
+        </a>
+      </div>
+    </nav>
 
-        <header class="hero">
-            <div class="hero-content">
-                <h1>The Contributor Gallery</h1>
-                <p class="subtitle">A showcase of creative developer profile cards from the open-source community. Built
-                    for Hacktoberfest 2025.</p>
-                <a href="https://github.com/dsawithaditi/Hacktoberfest2025#how-to-contribute" target="_blank"
-                    class="hero-cta">Start Contributing Today</a>
-            </div>
-        </header>
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-content">
+        <h2>The Contributor Gallery</h2>
+        <p class="subtitle">
+          A showcase of creative developer profile cards from the open-source community — built for Hacktoberfest 2025.
+        </p>
+        <a
+          href="https://github.com/dsawithaditi/Hacktoberfest2025#how-to-contribute"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hero-cta"
+        >
+          Start Contributing Today
+        </a>
+      </div>
+    </header>
 
-        <main>
-            <div class="search-container">
-                <i class="ri-search-line"></i>
-                <input type="text" id="search-input" placeholder="Search by name, bio, or tags (e.g., minimalist)...">
-            </div>
+    <!-- Main Content -->
+    <main>
+      <!-- Search Box -->
+      <div class="search-container">
+        <label for="search-input" class="visually-hidden">Search Contributors</label>
+        <i class="ri-search-line"></i>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search by name, bio, or tags (e.g., minimalist)..."
+          autocomplete="off"
+        />
+      </div>
 
-            <div id="contributors-container">
-            </div>
-            <div id="sentinel"></div>
-            <div id="loader"></div>
-            <p id="no-results" class="no-results-message">No contributors found matching your search.</p>
-        </main>
+      <!-- Contributors Grid -->
+      <section id="contributors-container" aria-live="polite"></section>
+
+      <!-- Lazy Load Sentinel -->
+      <div id="sentinel" aria-hidden="true"></div>
+
+      <!-- Loader -->
+      <div id="loader" class="loader" aria-hidden="true"></div>
+
+      <!-- No Results -->
+      <p id="no-results" class="no-results-message" hidden>
+        No contributors found matching your search.
+      </p>
+    </main>
+  </div>
+
+  <!-- Contributor Modal -->
+  <div id="modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content">
+      <button id="modal-close" class="modal-close-button" aria-label="Close modal">&times;</button>
+      <div id="modal-iframe-container"></div>
+      <div id="modal-info"></div>
     </div>
+  </div>
 
-    <div id="modal" class="modal-overlay">
-        <div class="modal-content">
-            <button id="modal-close" class="modal-close-button">&times;</button>
-            <div id="modal-iframe-container"></div>
-            <div id="modal-info"></div>
+  <!-- Preview Modal -->
+  <div id="preview-modal" class="modal-overlay" aria-hidden="true">
+    <div class="preview-modal-content">
+      <header class="preview-modal-header">
+        <h3>Device Preview</h3>
+        <div id="device-controls" class="device-controls">
+          <button data-device="mobile" title="Mobile View" aria-label="Mobile View">
+            <i class="ri-smartphone-line"></i>
+          </button>
+          <button data-device="tablet" title="Tablet View" aria-label="Tablet View">
+            <i class="ri-tablet-line"></i>
+          </button>
+          <button
+            data-device="desktop"
+            class="active"
+            title="Desktop View"
+            aria-label="Desktop View"
+          >
+            <i class="ri-computer-line"></i>
+          </button>
         </div>
-    </div>
+        <button
+          id="preview-modal-close"
+          class="modal-close-button"
+          aria-label="Close preview"
+        >
+          &times;
+        </button>
+      </header>
 
-    <div id="preview-modal" class="modal-overlay">
-        <div class="preview-modal-content">
-            <div class="preview-modal-header">
-                <h3>Device Preview</h3>
-                <div id="device-controls" class="device-controls">
-                    <button data-device="mobile" title="Mobile View"><i class="ri-smartphone-line"></i></button>
-                    <button data-device="tablet" title="Tablet View"><i class="ri-tablet-line"></i></button>
-                    <button data-device="desktop" class="active" title="Desktop View"><i
-                            class="ri-computer-line"></i></button>
-                </div>
-                <button id="preview-modal-close" class="modal-close-button">&times;</button>
-            </div>
-            <div id="preview-iframe-container" class="preview-iframe-container view-desktop">
-                <iframe id="preview-iframe"></iframe>
-            </div>
-            <div class="preview-modal-footer">
-                <a href="#" id="preview-cta" target="_blank" class="hero-cta">
-                    Go to Live Project <i class="ri-external-link-line"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+      <div id="preview-iframe-container" class="preview-iframe-container view-desktop">
+        <iframe id="preview-iframe" title="Live Project Preview"></iframe>
+      </div>
 
-    <script src="js/main.js"></script>
+      <footer class="preview-modal-footer">
+        <a
+          href="#"
+          id="preview-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hero-cta"
+        >
+          Go to Live Project <i class="ri-external-link-line"></i>
+        </a>
+      </footer>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
 </body>
-
 </html>
